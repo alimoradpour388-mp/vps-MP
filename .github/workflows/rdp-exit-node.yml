@@ -26,8 +26,9 @@ jobs:
         run: |
           reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v IPEnableRouter /t REG_DWORD /d 1 /f
           sc config RemoteAccess start= auto
-          net start RemoteAccess || echo "RemoteAccess service failed to start, but continuing..."
+          net start RemoteAccess
         shell: cmd
+        continue-on-error: true
 
       - name: 4. Install & Connect Tailscale VPN
         env:
